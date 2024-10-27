@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Monstruos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fcfcfc;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            background-color: #333;
+            color: #f4f4f4;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+        }
+
+        th {
+            background-color: #8001FF;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: rgba(128, 1, 255, 0.2);
+        }
+
+        a {
+            color: #2196F3;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Neblina de Halloween */
+        .fog {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Neblina oscura */
+            opacity: 0.2; /* Opacidad de la neblina */
+            pointer-events: none; /* Asegura que no interfiera con el contenido */
+        }
+    </style>
+</head>
+<body>
+<div class="fog"></div>
+<h1>Lista de Monstruos</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th style="text-align: center;">Nivel de Amenaza</th>
+        <th>Descripción</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="monstruo : ${monstruos}">
+        <td th:text="${monstruo.id}"></td>
+        <td th:text="${monstruo.nombre}"></td>
+        <td th:text="${monstruo.tipo}"></td>
+        <td th:text="${monstruo.nivelAmenaza}" style="text-align: center;"></td>
+        <td th:text="${monstruo.descripcion}"></td>
+        <td class="actions">
+            <a th:href="@{/monstruos/edit/{id}(id=${monstruo.id})}">Editar</a>
+            <a th:href="@{/monstruos/delete/{id}(id=${monstruo.id})}"
+               onclick="return confirm('¿Estás seguro de que deseas eliminar este monstruo?');">Eliminar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="/monstruos/new" style="display: block; text-align: center; margin-top: 20px; font-weight: bold;">Agregar Nuevo Monstruo</a>
+</body>
+</html>
